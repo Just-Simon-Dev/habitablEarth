@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  frontend:
+    container_name: habitablEarth-frontend
+    build:
+      context: .
+      dockerfile: ./habitablEarth/Dockerfile
+    ports:
+      - "80:4200"
+    volumes:
+      - ./habitablEarth:/project
+      - /project/node_modules
+    networks:
+      - habitablEarth-network
+    depends_on:
+      - backend
+  backend:
+    container_name: habitablEarth-backend
+    build: ./backend
+    volumes:
+      - ./:/backend/
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 5000:5000
+    networks:
+      - habitablEarth-network
+
+    
+
+networks:
+  habitablEarth-network:
+    driver: bridge
