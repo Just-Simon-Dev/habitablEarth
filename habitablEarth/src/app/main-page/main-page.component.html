@@ -1,1 +1,11 @@
-<app-map></app-map>
+<div class="hidden lg:block p-5">
+    <app-map></app-map>
+</div>
+<div class="flex flex-col items-center lg:hidden space-y-6">
+    <h1 class="font-bold uppercase text-xl text-center">The map is only available on larger screens</h1>
+    <p>Check out our subsites:</p>
+    <div class="flex space-x-5">
+        <a routerLink="/about" class="flex justify-center items-center bg-prime border border-prime py-2 w-32 rounded text-white uppercaase hover:text-prime hover:bg-white">About</a>
+        <a routerLink="/information" class="flex justify-center items-center bg-prime border border-prime py-2 w-32 rounded text-white hover:text-prime hover:bg-white">Information</a>
+    </div>
+</div>
