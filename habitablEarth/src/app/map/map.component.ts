@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CountriesData, ChartSelectEvent  } from 'countries-map';
 import { TemperatureForCountryService } from 'src/services/temperature-for-country.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-map',
@@ -12,11 +13,22 @@ export class MapComponent{
 	public select(event: ChartSelectEvent){
 		console.log(event)
 		let countryName = Object(this.countryListAlpha2)[event.country]
-		this.temperatureService.getTemperatures("2013-10-01", countryName).subscribe(data => {
+		this.temperatureService.getTemperatures(this.actual_date, countryName).subscribe(data => {
 			this.mapData[event.country] = {"value": Math.round(Object(data)[countryName])}
 		})
 		
 	}
+
+	actual_date: string | null = "2013-10-01"
+
+	updateDate(){
+		if(this.date != null){
+			this.actual_date = this.date.value
+		}
+	}
+
+	date = new FormControl('2013-10-01');
+
 	public mapData: CountriesData = {
 		"AF": {"value": 0},
 		"AL": {"value": 0},
