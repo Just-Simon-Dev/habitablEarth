@@ -8,7 +8,6 @@ services:
       dockerfile: ./habitablEarth/Dockerfile
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./habitablEarth:/project
       - /project/node_modules
