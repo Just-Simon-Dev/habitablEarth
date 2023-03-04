@@ -7,10 +7,12 @@ services:
       context: .
       dockerfile: ./habitablEarth/Dockerfile
     ports:
-      - "80:4200"
+      - "80:80"
     volumes:
       - ./habitablEarth:/project
       - /project/node_modules
+    environment:
+      - NGINX_HOST=habitable-earth.eu
     networks:
       - habitablEarth-network
     depends_on:
