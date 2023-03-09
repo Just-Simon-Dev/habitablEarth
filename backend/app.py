@@ -22,7 +22,7 @@ def get_countries():
 	return jsonify(temperatures)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='141.144.237.116', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
 
 # @app.route('/api/cities', methods=["GET"])
 # def get_cities():
