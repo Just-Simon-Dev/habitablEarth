@@ -1,6 +1,6 @@
 {
 	"/api": {
-		"target": "http://habitable-earth:5000",
+		"target": "http://habitable-earth.eu:5000",
 		"secure": false
 	}
 }
