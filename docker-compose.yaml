@@ -10,8 +10,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./habitablEarth:/project
-      - /project/node_modules
+      - ./nginx/:/etc/nginx/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
     environment:
       - NGINX_HOST=habitable-earth.eu
     networks:
@@ -28,7 +29,11 @@ services:
       - 5000:5000
     networks:
       - habitablEarth-network
-
+  certbot:
+      image: certbot/certbot:latest
+      volumes:
+        - ./certbot/www/:/var/www/certbot/:rw
+        - ./certbot/conf/:/etc/letsencrypt/:rw
     
 
 networks:
