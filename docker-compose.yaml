@@ -11,8 +11,6 @@ services:
       - "443:443"
     volumes:
       - ./nginx/:/etc/nginx/conf.d/:ro
-      - ./certbot/www:/var/www/certbot/:ro
-      - ./certbot/conf/:/etc/nginx/ssl/:ro
     environment:
       - NGINX_HOST=habitable-earth.eu
     networks:
@@ -21,7 +19,8 @@ services:
       - backend
   backend:
     container_name: habitablEarth-backend
-    build: ./backend
+    build: 
+      dockerfile: ./backend/Dockerfile
     volumes:
       - ./:/backend/
       - /etc/localtime:/etc/localtime:ro
