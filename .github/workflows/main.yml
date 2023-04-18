@@ -1,0 +1,28 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deployment:
+    runs-on: self-hosted
+    environment: production
+    concurrency: production
+    steps:
+      - name: 'connect by ssh'
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: 'Stopping Docker Containers'
+        run: |
+          sudo docker-compose stop
+      - name: 'Getting updates from GitHub'
+        run: |
+          git pull
+      - name: 'Starting Docker Containers'
+        run: |
+          sudo docker-compose up -d --build
+          
+      
