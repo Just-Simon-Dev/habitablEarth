@@ -11,8 +11,6 @@ jobs:
     environment: production
     concurrency: production
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
       - name: 'connect by ssh'
         uses: webfactory/ssh-agent@v0.7.0
         with:
