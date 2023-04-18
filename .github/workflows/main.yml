@@ -18,6 +18,6 @@ jobs:
 
       - name: Deploy to VM
         run: |
-          sshpass -p ${{ secrets.PRIVATE_KEY }} ssh -o StrictHostKeyChecking=no ${{ secrets.ACC }} 'cd /habitablEarth && git pull origin main && docker-compose restart'
+          sshpass -p ${{ secrets.PRIVATE_KEY }} ssh ${{ secrets.ACC }} 'cd /habitablEarth && git pull origin main && docker-compose restart'
           
       
