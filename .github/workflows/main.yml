@@ -21,6 +21,6 @@ jobs:
           chmod 400 ./pv_key.key
       - name: Deploy to VM
         run: |
-          ssh -i ./pv_key.key ${{ secrets.ACC }} 'cd /habitablEarth && git pull origin main && docker-compose restart'
+          ssh -i ./pv_key.key ${{ secrets.ACC }} 'cd ./habitablEarth && git pull origin main && sudo docker-compose restart'
           
       
