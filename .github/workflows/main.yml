@@ -11,17 +11,13 @@ jobs:
     environment: production
     concurrency: production
     steps:
-      - name: 'connect by ssh'
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-            ssh-private-key: ${{ secrets.PRIVATE_KEY }}
-      - name: 'Stopping Docker Containers' 
-        run: sudo docker-compose stop
-      - name: 'Getting updates from GitHub'
+      - name: Install dependencies
         run: |
-          git pull
-      - name: 'Starting Docker Containers'
+          sudo yum update
+          sudo yum install -y sshpass
+
+      - name: Deploy to VM
         run: |
-          sudo docker-compose up -d --build
+          sshpass -p ${{ secrets.PRIVATE_KEY }} ssh -o StrictHostKeyChecking=no ${{ secrets.ACC }} 'cd /habitablEarth && git pull origin main && docker-compose restart'
           
       
