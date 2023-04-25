@@ -1,7 +1,25 @@
 <countries-map #map [data]="mapData" (chartSelect)="select($event)" [showCaption]="false"></countries-map>
-<div class="rounded-md flex w-full p-5 justify-around items-center mb-10 shadow-sm bg-prime">
-	<div class="border-right font-bold text-white tracking-wider">Country: {{actual_country}}</div>
-	<div class="text-white tracking-wider">Temperature: {{temperature}}</div>
+<table class="bg-prime rounded-md shadow mt-10">
+	<thead class="border-none">
+		<tr class="text-left uppercase text-xs text-white">
+			<th scope="col" class="px-6 py-3">Country</th>
+			<th scope="col" class="px-6 py-3">Temperature</th>
+			<th scope="col" class="px-6 py-3">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="bg-white" *ngIf="actual_country.length == 0">
+			<th scope="row" class="px-6 py-3 rounded-b" colspan="3">Click on a country to see the data</th>
+		</tr>
+		<tr class="bg-white text-gray-700 text-left border-b-2 last:border-b-0 hover:bg-gray-50" *ngFor="let country of actual_country">
+			<th scope="row" class="px-6 py-3">{{country[0]}}</th>
+			<td class="px-6 py-3">{{country[1]}}</td>
+			<td class="px-6 py-3 text-prime hover:underline cursor-pointer" (click)="removeElementFromActualCountry(country[0])">remove</td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="flex space-x-4 mt-4">
+	<input type="text" class="border text-sm rounded-md text-gray-700 p-2" id="date" [formControl]="date" />
+	<button type="button" class="border text-sm rounded-lg text-prime p-2 hover:bg-prime hover:text-white" (click)="updateDate()">Update date!</button>
 </div>
-<input type="text" class="border text-sm rounded-md text-prime p-2 m-2" id="date" [formControl]="date" />
-<button type="button" class="border text-sm rounded-lg text-prime p-2" (click)="updateDate()">Update date!</button>

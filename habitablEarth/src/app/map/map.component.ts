@@ -10,8 +10,8 @@ import { tap } from 'rxjs';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent{
-	actual_country: string = 'Country'
-	temperature: number = NaN
+	actual_country: (string | number)[][] = []
+	
 	@ViewChild('map') map!: CountriesMapComponent
 	constructor(private temperatureService: TemperatureForCountryService){}
 
@@ -21,17 +21,34 @@ export class MapComponent{
 		if (Number.isNaN(this.mapData[event.country]["value"])){
 			this.temperatureService.getTemperatures(this.actual_date, countryName).pipe(
 				tap(data => {
-					this.actual_country = countryName
-					this.temperature=Math.round(Object(data)[countryName])
+					this.actual_country.push([countryName, Math.round(Object(data)[countryName])])
 					this.mapData[event.country] = { "value": Math.round(Object(data)[countryName]) }
 			})
 			).subscribe()
 		}
-		else {
-			this.actual_country = countryName
-			this.temperature=this.mapData[event.country]["value"]
+		else{
+			let isInArray = false;
+			for (let country of this.actual_country){
+				if (country[0] == countryName){
+					isInArray = true
+					break
+				}
+			}
+			if(!isInArray){
+				this.actual_country.push([countryName, this.mapData[event.country]["value"]])
+			}
 		}
-		
+	}
+
+	removeElementFromActualCountry(country_name:any){
+		let i = 0;
+		for (let country of this.actual_country){
+			if (country[0] == country_name){
+				this.actual_country.splice(i, 1)
+				break
+			}
+			i++;
+		}
 	}
 
 	actual_date: string | null = "2013-10-01"
