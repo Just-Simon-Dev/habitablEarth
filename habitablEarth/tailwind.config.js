@@ -5,11 +5,12 @@ module.exports = {
     "./src/**/**/*.{html,ts}",
   ],
   theme: {
-    colors: {
-      'prime': '#ff8080',
-      'bg': '#d6dcdc',
-      'white': '#ffffff',
-    },
+    extend: {
+      colors: {
+        'prime': '#ff8080',
+        'bg': '#d6dcdc',
+      },
+    }
   },
   plugins: [],
 }
